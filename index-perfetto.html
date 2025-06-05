@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cucine di Lusso</title>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #2C3424;
+            --primary-medium: #4C583E;
+            --accent-medium: #959581;
+            --accent-light: #DADED8;
+            --white: #ffffff;
+            --black: #000000;
+        }
+
+        body {
+  font-family: "Arvo", serif;
+            line-height: 1.6;
+                background: url('bedge-grunge.png') var(--white);
+
+            color: var(--primary-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.5rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(0px);
+            height: 70px;
+            display: flex;
+            align-items: center;
+
+
+
+        }
+
+        .header.visible {
+            opacity: 1;
+        }
+
+        .header.scrolled {
+    background: url('bedge-grunge.png') rgba(255, 255, 255, 0);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(44, 52, 36, 0.1);
+                height: 60px; /* Keep the scrolled height the same as original */
+                    top: 0; /* Remove the top spacing when scrolled */
+
+        }
+
+        .header.scrolled .nav-link,
+        .header.scrolled .logo,
+        .header.scrolled .menu-line {
+            color: white;
+        }
+
+        .header.scrolled .cta-button {
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .header.scrolled .cta-button::before {
+            background: var(--primary-dark);
+        }
+
+        .header.scrolled .cta-button:hover {
+            color: var(--white);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: -200px;
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .menu-line {
+            width: 28px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-toggle.active .menu-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active .menu-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .menu-line:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-dark), var(--accent-medium));
+            transition: width 0.3s ease;
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-desktop {
+            display: flex;
+            gap: 1.5rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-medium);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-medium);
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: #4C583E;
+            color: white;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-right: -200px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 2px solid white;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 0.9rem;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-dark);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .cta-button:hover::before {
+            transform: translateX(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            width: 500px;
+            left: -500px;
+            height: 100vh;
+    background: url('bedge-grunge.png') linear-gradient(135deg, var(--primary-dark), var(--primary-medium));            backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+            
+        }
+
+        .mobile-menu .logo {
+            color: var(--white);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav .nav-link {
+            color: var(--white);
+            font-size: 1.2rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            padding-left: 1.5rem;
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+.hero {
+    height: 100vh;
+    background: url('anima.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.6; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: absolute;
+            z-index: 2;
+        }
+
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0rem; /* Reduced from 1rem */
+    text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+    animation: slideInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.8rem); /* Better size range */
+    color: var(--accent-light);
+    font-weight: 400;
+    animation: slideInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+    line-height: 1.3; /* Changed from 0.1 to 1.3 */
+    margin-top: 0.1rem; /* Add some space after title */
+}
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Categories Section */
+        .categories {
+    padding: 8rem 2rem;
+    background: url('bedge-grunge.png') var(--white);
+    position: relative;
+    overflow: hidden;
+        }
+
+        .categories::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url(bedge-grunge.png);
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .categories-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(44, 52, 36, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+
+        .category-card:hover::before {
+            opacity: 0.95;
+        }
+
+        .category-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(44, 52, 36, 0.25);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.1);
+        }
+
+        .category-content {
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+
+        .category-card:hover .category-content {
+            color: var(--white);
+        }
+
+        .category-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .category-description {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .category-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .category-card:hover .category-link {
+            color: var(--white);
+            transform: translateX(10px);
+        }
+
+        .category-link::after {
+            content: '→';
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-link::after {
+            transform: translateX(5px);
+        }
+
+        /* Why Choose Us Section */
+        .why-us {
+    padding: 8rem 2rem;
+    background: url('bedge-grunge.png') var(--primary-dark);
+    color: #2f2e06;
+    position: relative;
+    overflow: hidden;
+        }
+
+        .why-us::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+                        background: url(bedge-grunge.png);
+        }
+
+        .why-us-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, var(--white), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-light), var(--accent-medium));
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent-light);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .feature-description {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery {
+    padding: 8rem 0;
+    background: url('bedge-grunge.png') var(--white);
+    overflow: hidden;
+        }
+.categories::before,
+.why-us::before,
+.gallery::before {
+    display: none;
+}
+        .gallery-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--primary-dark);
+            letter-spacing: 3px;
+        }
+
+        .gallery-scroll {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 30s linear infinite;
+            width: fit-content;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .gallery-item {
+            flex-shrink: 0;
+            width: 400px;
+            height: 300px;
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(44, 52, 36, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(44, 52, 36, 0.25);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+/* Footer */
+.footer {
+    background: url('bedge-grunge.png') linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+    color: var(--primary-medium); /* Base text color */
+    padding: 4rem 2rem 2rem;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.footer-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    color: var(--black) Keep titles white */
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footer-link {
+    color: #4C583E; /* Lighter version of your accent-light */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.footer-link:hover {
+    color: var(--white);
+    transform: translateX(5px);
+}
+
+.contact-info {
+    display: flex;
+    color: #4C583E;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #4C583E; /* Darker gray for better readability */
+    font-size: 1.1rem;
+}
+
+/* Rest of your existing footer styles remain the same */
+.email-signup {
+    display: flex;
+    gap: 1rem;
+    color: #4C583E;
+    margin-top: 1rem;
+}
+
+.email-input {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(61, 58, 58, 0.3);
+    color: #4C583E;
+    font-family: "Philosopher", sans-serif;
+}
+
+.email-input::placeholder {
+    color: rgba(27, 25, 25, 0.7);
+}
+
+.email-submit {
+    padding: 12px 24px;
+    background: var(--accent-medium);
+    color: #4C583E;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Philosopher", sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.email-submit:hover {
+    background: var(--accent-light);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+        color: #4C583E;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+        color: #4C583E;
+    margin-top: 1rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+}
+
+.social-link:hover {
+    background: var(--accent-light);
+    color: var(--primary-dark);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    color: #4C583E;
+}
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+                .hero {
+        background-attachment: scroll; /* Remove parallax on mobile */
+        min-height: 80vh; /* Slightly shorter than full viewport */
+        background-size: cover;
+        background-position: 0.0001% center; /* Adjust focal point */
+        padding: 2rem 1rem;
+    }
+
+        .hero {
+        aspect-ratio: 9/16; /* Portrait orientation ratio */
+        height: auto;
+    }
+            .header {
+                height: 60px;
+            }
+            
+            .header-left {
+                margin-left: 0px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+    .cta-button {
+        margin-right: 0; /* Remove negative margin */
+        padding: 6px 12px; /* Slightly larger padding */
+        font-size: 0.6rem; /* Slightly larger font */
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+    
+            
+            .menu-toggle {
+                padding: 6px;
+            }
+            
+            .menu-line {
+                width: 24px;
+            }
+            
+            .nav-desktop {
+                display: none;
+            }
+
+    .hero-content {
+        padding: 0 1rem;
+        bottom: 2rem; /* Position from bottom */
+    }
+        .hero-title, .hero-subtitle {
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+            .hero {
+                padding: 2rem 1rem;
+                background-attachment: scroll;
+            }
+
+            .categories-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem 1rem;
+            }
+
+            .gallery-item {
+                width: 300px;
+                height: 225px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .email-signup {
+                flex-direction: column;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .mobile-menu {
+                width: 80%;
+                left: -80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .categories, .why-us {
+                padding: 4rem 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Smooth scrolling and animations */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="menu-toggle" id="menuToggle">
+                    <div class="menu-line"></div>
+                    <div class="menu-line"></div>
+                    <div class="menu-line"></div>
+                </div>
+                <a href="#" class="logo">CUCINE</a>
+            </div>
+            
+            <nav class="nav-desktop">
+                <a href="#cucine-usate" class="nav-link">Cucine Usate</a>
+                <a href="#cucine-nuove" class="nav-link">Cucine Nuove</a>
+                <a href="#servizi" class="nav-link">Servizi</a>
+                <a href="#contatti" class="nav-link">Contatti</a>
+                <a href="#perche-noi" class="nav-link">Perché Noi?</a>
+            </nav>
+            
+            <a href="#preventivo" class="cta-button">Richiedi un preventivo</a>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <nav class="mobile-menu" id="mobileMenu">
+        <a href="#" class="logo">CUCINE</a>
+        <div class="mobile-nav">
+            <a href="#cucine-usate" class="nav-link">Cucine Usate</a>
+            <a href="#cucine-nuove" class="nav-link">Cucine Nuove</a>
+            <a href="#servizi" class="nav-link">Servizi</a>
+            <a href="#contatti" class="nav-link">Contatti</a>
+            <a href="#perche-noi" class="nav-link">Perché Noi?</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Cucine di Eccellenza</h1>
+            <p class="hero-subtitle">Dove l'arte culinaria incontra il design senza tempo. Scopri la perfezione nella tua cucina.</p>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="categories-container">
+            <div class="category-card fade-in" id="cucine-usate">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucine Usate" class="category-image">
+                <div class="category-content">
+                    <h3 class="category-title">Cucine Usate</h3>
+                    <p class="category-description">Cucine di qualità superiore ricondizionate con cura maniacale. Ogni pezzo racconta una storia di eccellenza.</p>
+                    <a href="#" class="category-link">Scopri di più</a>
+                </div>
+            </div>
+            
+            <div class="category-card fade-in" id="cucine-nuove">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucine Nuove" class="category-image">
+                <div class="category-content">
+                    <h3 class="category-title">Cucine Nuove</h3>
+                    <p class="category-description">Design contemporaneo e innovazione tecnologica. Realizza la cucina dei tuoi sogni con materiali premium.</p>
+                    <a href="#" class="category-link">Esplora ora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us fade-in" id="perche-noi">
+        <div class="why-us-container">
+            <h2 class="section-title">Perché Scegliere Noi</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h4 class="feature-title">Qualità Premium</h4>
+                    <p class="feature-description">Selezioniamo solo i migliori marchi e materiali per garantire durabilità e bellezza senza compromessi.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h4 class="feature-title">Design Personalizzato</h4>
+                    <p class="feature-description">Ogni cucina è progettata su misura per riflettere il tuo stile unico e le tue esigenze specifiche.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h4 class="feature-title">Servizio Completo</h4>
+                    <p class="feature-description">Dalla progettazione all'installazione, ti accompagniamo in ogni fase del processo.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h4 class="feature-title">Esperienza Decennale</h4>
+                    <p class="feature-description">Oltre 20 anni di esperienza nel settore delle cucine di lusso ci rendono il partner ideale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery fade-in">
+        <h2 class="gallery-title">Le Nostre Realizzazioni</h2>
+        <div class="gallery-scroll">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Moderna">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909195-f691848ea5c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Classica">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909197-f5046c8025b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Design">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909197-45951e4d3ddf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Lusso">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909197-4965ba40c61e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Elegante">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Premium">
+            </div>
+            <!-- Duplicate for seamless scroll -->
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Moderna">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909195-f691848ea5c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Classica">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1556909197-f5046c8025b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cucina Design">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Menu</h3>
+                <div class="footer-links">
+                    <a href="#cucine-usate" class="footer-link">Cucine Usate</a>
+                    <a href="#cucine-nuove" class="footer-link">Cucine Nuove</a>
+                    <a href="#servizi" class="footer-link">Servizi</a>
+                    <a href="#contatti" class="footer-link">Contatti</a>
+                    <a href="#perche-noi" class="footer-link">Perché Noi?</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contatti</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <span>info@cucinelusso.it</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📞</span>
+                        <span>+39 02 1234 5678</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <span>Milano, Lombardia</span>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🐦</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p style="    color: #4C583E; margin-bottom: 1rem;">Resta aggiornato sulle nostre novità e offerte esclusive.</p>
+                <div class="email-signup">
+                    <input type="email" class="email-input" placeholder="La tua email">
+                    <button class="email-submit">Iscriviti</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Cucine di Lusso. Tutti i diritti riservati. Creato con passione per l'eccellenza.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll animation
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            const currentScroll = window.scrollY;
+            
+            // Always show header when scrolling up
+            if (currentScroll <= 0) {
+                header.classList.add('visible');
+                header.classList.remove('scrolled');
+                return;
+            }
+            
+            if (currentScroll > lastScroll) {
+                // Scrolling down
+                if (currentScroll > 100) {
+                    header.classList.add('visible', 'scrolled');
+                }
+            } else {
+                // Scrolling up
+                header.classList.add('visible');
+                if (currentScroll > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Show header on page load
+        window.addEventListener('load', function() {
+            document.getElementById('header').classList.add('visible');
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileOverlay.addEventListener('click', function() {
+            menuToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-nav .nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Gallery pause on hover
+        const galleryScroll = document.querySelector('.gallery-scroll');
+        if (galleryScroll) {
+            galleryScroll.addEventListener('mouseenter', function() {
+                this.style.animationPlayState = 'paused';
+            });
+            
+            galleryScroll.addEventListener('mouseleave', function() {
+                this.style.animationPlayState = 'running';
+            });
+        }
+    </script>
+</body>
+</html>
