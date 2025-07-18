@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cucine di Lusso</title>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -22,8 +24,10 @@
         }
 
         body {
-            font-family: "Philosopher", sans-serif;
+  font-family: "Arvo", serif;
             line-height: 1.6;
+                background: url('bedge-grunge.png') var(--white);
+
             color: var(--primary-dark);
             overflow-x: hidden;
         }
@@ -31,25 +35,58 @@
         /* Header Styles */
         .header {
             position: fixed;
-            top: 0;
+            top: 20px;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1rem 2rem;
+            padding: 0.5rem 0;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(0px);
+            height: 70px;
+            display: flex;
+            align-items: center;
+
+
+
+        }
+
+        .header.visible {
+            opacity: 1;
         }
 
         .header.scrolled {
-            background: rgba(255, 255, 255, 0.95);
+    background: url('bedge-grunge.png') rgba(255, 255, 255, 0);
             backdrop-filter: blur(20px);
             box-shadow: 0 8px 32px rgba(44, 52, 36, 0.1);
+                height: 60px; /* Keep the scrolled height the same as original */
+                    top: 0; /* Remove the top spacing when scrolled */
+
+        }
+
+        .header.scrolled .nav-link,
+        .header.scrolled .logo,
+        .header.scrolled .menu-line {
+            color: white;
+        }
+
+        .header.scrolled .cta-button {
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .header.scrolled .cta-button::before {
+            background: var(--primary-dark);
+        }
+
+        .header.scrolled .cta-button:hover {
+            color: var(--white);
         }
 
         .header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 95%;
             max-width: 1400px;
             margin: 0 auto;
         }
@@ -57,7 +94,8 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 0.5rem;
+            margin-left: -200px;
         }
 
         .menu-toggle {
@@ -65,7 +103,7 @@
             flex-direction: column;
             gap: 6px;
             cursor: pointer;
-            padding: 8px;
+            padding: 8px 5px;
             transition: all 0.3s ease;
         }
 
@@ -76,7 +114,7 @@
         .menu-line {
             width: 28px;
             height: 2px;
-            background: var(--primary-dark);
+            background: white;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -93,9 +131,9 @@
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary-dark);
+            color: white;
             text-decoration: none;
             letter-spacing: 2px;
             position: relative;
@@ -118,12 +156,13 @@
 
         .nav-desktop {
             display: flex;
-            gap: 2.5rem;
-            align-items: center;
+            gap: 1.5rem;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
         .nav-link {
-            color: var(--primary-dark);
+            color: white;
             text-decoration: none;
             font-weight: 500;
             font-size: 1.1rem;
@@ -154,48 +193,51 @@
         }
 
         .cta-button {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
-            color: var(--white);
-            padding: 12px 28px;
+            background: #4C583E;
+            color: white;
+            padding: 12px 20px;
             text-decoration: none;
             font-weight: 600;
             letter-spacing: 1px;
+            margin-right: -200px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            border: 2px solid white;
             overflow: hidden;
-            border: 2px solid transparent;
+            z-index: 1;
+            font-size: 0.9rem;
         }
 
         .cta-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
+            background: var(--primary-dark);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            z-index: -1;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(44, 52, 36, 0.3);
-            border-color: var(--accent-medium);
+            color: var(--white);
+            transform: translateY(-2px);
         }
 
         .cta-button:hover::before {
-            left: 100%;
+            transform: translateX(0);
         }
 
         /* Mobile Menu */
         .mobile-menu {
             position: fixed;
             top: 0;
-            left: -100%;
-            width: 320px;
+            width: 500px;
+            left: -500px;
             height: 100vh;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
-            backdrop-filter: blur(20px);
+    background: url('bedge-grunge.png') linear-gradient(135deg, var(--primary-dark), var(--primary-medium));            backdrop-filter: blur(20px);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1001;
             padding: 2rem;
@@ -206,6 +248,7 @@
 
         .mobile-menu.active {
             left: 0;
+            
         }
 
         .mobile-menu .logo {
@@ -252,19 +295,16 @@
         }
 
         /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(44, 52, 36, 0.4), rgba(76, 88, 62, 0.3)), 
-                        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: flex-end;
-            padding: 4rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
+.hero {
+    height: 100vh;
+    background: url('anima.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
 
         .hero::before {
             content: '';
@@ -273,10 +313,6 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, 
-                rgba(44, 52, 36, 0.8) 0%, 
-                rgba(76, 88, 62, 0.6) 50%, 
-                rgba(149, 149, 129, 0.4) 100%);
             animation: gradientShift 8s ease-in-out infinite;
         }
 
@@ -288,28 +324,27 @@
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
-            position: relative;
+            position: absolute;
             z-index: 2;
         }
 
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 1rem;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
-            animation: slideInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+.hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0rem; /* Reduced from 1rem */
+    text-shadow: 2px 2px 20px rgba(0,0,0,0.5);
+    animation: slideInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--accent-light);
-            font-weight: 400;
-            letter-spacing: 1px;
-            animation: slideInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
-            line-height: 1.4;
-        }
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.8rem); /* Better size range */
+    color: var(--accent-light);
+    font-weight: 400;
+    animation: slideInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+    line-height: 1.3; /* Changed from 0.1 to 1.3 */
+    margin-top: 0.1rem; /* Add some space after title */
+}
 
         @keyframes slideInUp {
             from {
@@ -324,10 +359,10 @@
 
         /* Categories Section */
         .categories {
-            padding: 8rem 2rem;
-            background: linear-gradient(135deg, var(--accent-light), var(--white));
-            position: relative;
-            overflow: hidden;
+    padding: 8rem 2rem;
+    background: url('bedge-grunge.png') var(--white);
+    position: relative;
+    overflow: hidden;
         }
 
         .categories::before {
@@ -337,8 +372,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(44, 52, 36, 0.05) 0%, transparent 70%);
-            animation: float 20s linear infinite;
+            background: url(bedge-grunge.png);
         }
 
         @keyframes float {
@@ -363,7 +397,6 @@
             box-shadow: 0 20px 60px rgba(44, 52, 36, 0.1);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            group: hover;
         }
 
         .category-card::before {
@@ -450,32 +483,144 @@
             transform: translateX(5px);
         }
 
-        /* Why Choose Us Section */
-        .why-us {
-            padding: 8rem 2rem;
-            background: var(--primary-dark);
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
+/* Why Choose Us Section - Corrected Version */
+.why-us {
+    padding: 8rem 2rem;
+    background: url('bedge-grunge.png') var(--primary-dark);
+    color: #2f2e06;
+    position: relative;
+    overflow: hidden;
+}
 
-        .why-us::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.05"/><circle cx="50" cy="10" r="1" fill="%23ffffff" opacity="0.03"/><circle cx="10" cy="60" r="1" fill="%23ffffff" opacity="0.04"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.1;
-        }
+.why-us::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('bedge-grunge.png');
+    opacity: 0.2;
+}
 
-        .why-us-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
+.excellence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.excellence-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.excellence-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.excellence-visual {
+    position: relative;
+    padding: 3rem 2rem 0;
+}
+
+.visual-container {
+    position: relative;
+    height: 80px;
+}
+
+.visual-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+    transition: all 0.4s ease;
+}
+
+.excellence-card:hover .visual-icon {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.visual-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-light), transparent);
+    transition: width 0.8s ease;
+}
+
+.excellence-card:hover .visual-line {
+    width: 100%;
+}
+
+.excellence-content {
+    padding: 2rem;
+    flex-grow: 1;
+}
+
+.excellence-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    color: var(--white);
+}
+
+.excellence-description {
+    opacity: 0.8;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: var(--accent-light);
+}
+
+.excellence-stats {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--white), var(--accent-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    color: var(--white);
+}
+
+@media (max-width: 768px) {
+    .excellence-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .excellence-card {
+        padding: 1.5rem;
+    }
+}
+
 
         .section-title {
             font-size: clamp(2.5rem, 6vw, 4rem);
@@ -547,11 +692,15 @@
 
         /* Gallery Section */
         .gallery {
-            padding: 8rem 0;
-            background: var(--accent-light);
-            overflow: hidden;
+    padding: 8rem 0;
+    background: url('bedge-grunge.png') var(--white);
+    overflow: hidden;
         }
-
+.categories::before,
+.why-us::before,
+.gallery::before {
+    display: none;
+}
         .gallery-title {
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 700;
@@ -600,140 +749,190 @@
             transform: scale(1.1);
         }
 
-        /* Footer */
-        .footer {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
-            color: var(--white);
-            padding: 4rem 2rem 2rem;
-        }
+/* Footer */
+.footer {
+    background: url('bedge-grunge.png') linear-gradient(135deg, var(--primary-dark), var(--primary-medium));
+    color: var(--primary-medium); /* Base text color */
+    padding: 4rem 2rem 2rem;
+}
 
-        .footer-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-        }
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
 
-        .footer-section h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            letter-spacing: 1px;
-        }
+.footer-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    color: var(--black) Keep titles white */
+}
 
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
 
-        .footer-link {
-            color: var(--accent-light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
+.footer-link {
+    color: #4C583E; /* Lighter version of your accent-light */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
 
-        .footer-link:hover {
-            color: var(--white);
-            transform: translateX(5px);
-        }
+.footer-link:hover {
+    color: var(--white);
+    transform: translateX(5px);
+}
 
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
+.contact-info {
+    display: flex;
+    color: #4C583E;
+    flex-direction: column;
+    gap: 1rem;
+}
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--accent-light);
-            font-size: 1.1rem;
-        }
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: #4C583E; /* Darker gray for better readability */
+    font-size: 1.1rem;
+}
 
-        .email-signup {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+/* Rest of your existing footer styles remain the same */
+.email-signup {
+    display: flex;
+    gap: 1rem;
+    color: #4C583E;
+    margin-top: 1rem;
+}
 
-        .email-input {
-            flex: 1;
-            padding: 12px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: var(--white);
-            font-family: "Philosopher", sans-serif;
-        }
+.email-input {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(61, 58, 58, 0.3);
+    color: #4C583E;
+    font-family: "Philosopher", sans-serif;
+}
 
-        .email-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
+.email-input::placeholder {
+    color: rgba(27, 25, 25, 0.7);
+}
 
-        .email-submit {
-            padding: 12px 24px;
-            background: var(--accent-medium);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Philosopher", sans-serif;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+.email-submit {
+    padding: 12px 24px;
+    background: var(--accent-medium);
+    color: #4C583E;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Philosopher", sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
 
-        .email-submit:hover {
-            background: var(--accent-light);
-            color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
+.email-submit:hover {
+    background: var(--accent-light);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+        color: #4C583E;
+}
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
+.social-links {
+    display: flex;
+    gap: 1rem;
+        color: #4C583E;
+    margin-top: 1rem;
+}
 
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 1.5rem;
-        }
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+}
 
-        .social-link:hover {
-            background: var(--accent-light);
-            color: var(--primary-dark);
-            transform: translateY(-3px);
-        }
+.social-link:hover {
+    background: var(--accent-light);
+    color: var(--primary-dark);
+    transform: translateY(-3px);
+}
 
-        .footer-bottom {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-            color: var(--accent-light);
-        }
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    color: #4C583E;
+}
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+                .hero {
+        background-attachment: scroll; /* Remove parallax on mobile */
+        min-height: 80vh; /* Slightly shorter than full viewport */
+        background-size: cover;
+        background-position: 0.0001% center; /* Adjust focal point */
+        padding: 2rem 1rem;
+    }
+
+        .hero {
+        aspect-ratio: 9/16; /* Portrait orientation ratio */
+        height: auto;
+    }
+            .header {
+                height: 60px;
+            }
+            
+            .header-left {
+                margin-left: 0px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+    .cta-button {
+        margin-right: 0; /* Remove negative margin */
+        padding: 8px 10px; /* Slightly larger padding */
+        font-size: 0.6rem; /* Slightly larger font */
+        white-space: nowrap; /* Prevent text wrapping */
+    }
+    
+            
+            .menu-toggle {
+                padding: 6px;
+            }
+            
+            .menu-line {
+                width: 24px;
+            }
+            
             .nav-desktop {
                 display: none;
             }
 
-            .header-content {
-                padding: 0 1rem;
-            }
-
+    .hero-content {
+        padding: 0 1rem;
+        bottom: 2rem; /* Position from bottom */
+    }
+        .hero-title, .hero-subtitle {
+        max-width: 100%;
+        word-wrap: break-word;
+    }
             .hero {
                 padding: 2rem 1rem;
                 background-attachment: scroll;
@@ -764,6 +963,11 @@
 
             .social-links {
                 justify-content: center;
+            }
+
+            .mobile-menu {
+                width: 80%;
+                left: -80%;
             }
         }
 
@@ -874,27 +1078,79 @@
     <!-- Why Choose Us Section -->
     <section class="why-us fade-in" id="perche-noi">
         <div class="why-us-container">
-            <h2 class="section-title">Perché Scegliere Noi</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⭐</div>
-                    <h4 class="feature-title">Qualità Premium</h4>
-                    <p class="feature-description">Selezioniamo solo i migliori marchi e materiali per garantire durabilità e bellezza senza compromessi.</p>
+            <h2 class="section-title">Eccellenza Artigianale</h2>
+            
+            <div class="excellence-grid">
+                <!-- Feature 1 -->
+                <div class="excellence-card">
+                    <div class="excellence-visual">
+                        <div class="visual-container">
+                            <img src="craftsmanship-icon.svg" alt="Artigianalità" class="visual-icon">
+                            <div class="visual-line"></div>
+                        </div>
+                    </div>
+                    <div class="excellence-content">
+                        <h3 class="excellence-title">Maestria Artigianale</h3>
+                        <p class="excellence-description">Tecniche di lavorazione secolari combinate con tecnologia avanzata per risultati senza compromessi.</p>
+                        <div class="excellence-stats">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Made in Italy</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h4 class="feature-title">Design Personalizzato</h4>
-                    <p class="feature-description">Ogni cucina è progettata su misura per riflettere il tuo stile unico e le tue esigenze specifiche.</p>
+                
+                <!-- Feature 2 -->
+                <div class="excellence-card">
+                    <div class="excellence-visual">
+                        <div class="visual-container">
+                            <img src="materials-icon.svg" alt="Materiali" class="visual-icon">
+                            <div class="visual-line"></div>
+                        </div>
+                    </div>
+                    <div class="excellence-content">
+                        <h3 class="excellence-title">Materiali Esclusivi</h3>
+                        <p class="excellence-description">Selezione personale di legni pregiati, pietre naturali e metalli di altissima qualità.</p>
+                        <div class="excellence-stats">
+                            <span class="stat-number">30+</span>
+                            <span class="stat-label">Finiture disponibili</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h4 class="feature-title">Servizio Completo</h4>
-                    <p class="feature-description">Dalla progettazione all'installazione, ti accompagniamo in ogni fase del processo.</p>
+                
+                <!-- Feature 3 -->
+                <div class="excellence-card">
+                    <div class="excellence-visual">
+                        <div class="visual-container">
+                            <img src="precision-icon.svg" alt="Precisione" class="visual-icon">
+                            <div class="visual-line"></div>
+                        </div>
+                    </div>
+                    <div class="excellence-content">
+                        <h3 class="excellence-title">Ingenieria di Precisione</h3>
+                        <p class="excellence-description">Tolleranze di lavorazione inferiori a 0.1mm garantiscono perfetta armonia tra gli elementi.</p>
+                        <div class="excellence-stats">
+                            <span class="stat-number">0.1mm</span>
+                            <span class="stat-label">Tolleranza</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💎</div>
-                    <h4 class="feature-title">Esperienza Decennale</h4>
-                    <p class="feature-description">Oltre 20 anni di esperienza nel settore delle cucine di lusso ci rendono il partner ideale.</p>
+                
+                <!-- Feature 4 -->
+                <div class="excellence-card">
+                    <div class="excellence-visual">
+                        <div class="visual-container">
+                            <img src="heritage-icon.svg" alt="Eredità" class="visual-icon">
+                            <div class="visual-line"></div>
+                        </div>
+                    </div>
+                    <div class="excellence-content">
+                        <h3 class="excellence-title">Eredità Familiare</h3>
+                        <p class="excellence-description">Tre generazioni di maestri falegnami che perfezionano l'arte delle cucine di lusso.</p>
+                        <div class="excellence-stats">
+                            <span class="stat-number">60+</span>
+                            <span class="stat-label">Anni di esperienza</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -954,7 +1210,7 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <span>📧</span>
-                        <span>info@cucinelusso.it</span>
+                        <span>info.cucineitalia@gmail.com</span>
                     </div>
                     <div class="contact-item">
                         <span>📞</span>
@@ -962,7 +1218,7 @@
                     </div>
                     <div class="contact-item">
                         <span>📍</span>
-                        <span>Milano, Lombardia</span>
+                        <span>Lombardia</span>
                     </div>
                 </div>
                 
@@ -975,7 +1231,7 @@
             
             <div class="footer-section">
                 <h3>Newsletter</h3>
-                <p style="color: var(--accent-light); margin-bottom: 1rem;">Resta aggiornato sulle nostre novità e offerte esclusive.</p>
+                <p style="    color: #4C583E; margin-bottom: 1rem;">Resta aggiornato sulle nostre novità e offerte esclusive.</p>
                 <div class="email-signup">
                     <input type="email" class="email-input" placeholder="La tua email">
                     <button class="email-submit">Iscriviti</button>
@@ -984,19 +1240,45 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2025 Cucine di Lusso. Tutti i diritti riservati. Creato con passione per l'eccellenza.</p>
+            <p>&copy; 2025 Cucine Italia. Tutti i diritti riservati. Creato con passione per l'eccellenza.</p>
         </div>
     </footer>
 
     <script>
-        // Header scroll effect
+        // Header scroll animation
+        let lastScroll = 0;
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
+            const currentScroll = window.scrollY;
+            
+            // Always show header when scrolling up
+            if (currentScroll <= 0) {
+                header.classList.add('visible');
                 header.classList.remove('scrolled');
+                return;
             }
+            
+            if (currentScroll > lastScroll) {
+                // Scrolling down
+                if (currentScroll > 100) {
+                    header.classList.add('visible', 'scrolled');
+                }
+            } else {
+                // Scrolling up
+                header.classList.add('visible');
+                if (currentScroll > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Show header on page load
+        window.addEventListener('load', function() {
+            document.getElementById('header').classList.add('visible');
         });
 
         // Mobile menu toggle
@@ -1064,16 +1346,6 @@
             observer.observe(el);
         });
 
-        // Parallax effect for hero section
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                const rate = scrolled * -0.5;
-                hero.style.transform = `translateY(${rate}px)`;
-            }
-        });
-
         // Gallery pause on hover
         const galleryScroll = document.querySelector('.gallery-scroll');
         if (galleryScroll) {
@@ -1085,116 +1357,6 @@
                 this.style.animationPlayState = 'running';
             });
         }
-
-        // Email subscription functionality
-        const emailSubmit = document.querySelector('.email-submit');
-        const emailInput = document.querySelector('.email-input');
-
-        if (emailSubmit && emailInput) {
-            emailSubmit.addEventListener('click', function(e) {
-                e.preventDefault();
-                const email = emailInput.value.trim();
-                
-                if (email && validateEmail(email)) {
-                    // Simulate subscription
-                    this.textContent = 'Iscritto!';
-                    this.style.background = '#4C583E';
-                    emailInput.value = '';
-                    
-                    setTimeout(() => {
-                        this.textContent = 'Iscriviti';
-                        this.style.background = '';
-                    }, 2000);
-                } else {
-                    // Show error state
-                    emailInput.style.borderColor = '#ff4444';
-                    setTimeout(() => {
-                        emailInput.style.borderColor = '';
-                    }, 2000);
-                }
-            });
-        }
-
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-
-        // Add loading animation
-        window.addEventListener('load', function() {
-            document.body.classList.add('loaded');
-        });
-
-        // Preload critical images
-        const criticalImages = [
-            'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
-        ];
-
-        criticalImages.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
-
-        // Add touch support for mobile interactions
-        let touchStartY = 0;
-        document.addEventListener('touchstart', function(e) {
-            touchStartY = e.touches[0].clientY;
-        });
-
-        document.addEventListener('touchmove', function(e) {
-            const touchY = e.touches[0].clientY;
-            const touchDiff = touchStartY - touchY;
-            
-            // Add subtle parallax effect on mobile
-            if (Math.abs(touchDiff) > 50) {
-                const hero = document.querySelector('.hero');
-                if (hero && window.scrollY < window.innerHeight) {
-                    hero.style.transform = `translateY(${touchDiff * 0.1}px)`;
-                }
-            }
-        });
-
-        // Optimize scroll performance
-        let ticking = false;
-        function updateScrollEffects() {
-            // Header scroll effect
-            const header = document.getElementById('header');
-            if (window.scrollY > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-
-            // Parallax effect for hero
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero && scrolled < window.innerHeight) {
-                const rate = scrolled * -0.3;
-                hero.style.transform = `translateY(${rate}px)`;
-            }
-
-            ticking = false;
-        }
-
-        function requestScrollUpdate() {
-            if (!ticking) {
-                requestAnimationFrame(updateScrollEffects);
-                ticking = true;
-            }
-        }
-
-        window.addEventListener('scroll', requestScrollUpdate);
-
-        // Add resize handler for responsive adjustments
-        window.addEventListener('resize', function() {
-            // Close mobile menu on resize
-            if (window.innerWidth > 768) {
-                menuToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                mobileOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
     </script>
 </body>
 </html>
